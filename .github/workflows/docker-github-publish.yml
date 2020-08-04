@@ -14,6 +14,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: RichardPoulson/aspnet-mvc-docker/image
+          repository: richardpoulson/aspnet-mvc-docker/image
           tag_with_ref: true
 
