@@ -1,4 +1,4 @@
-name: .NET Core (restore, build, and test)
+name: .NET Core
 
 on:
   push:
