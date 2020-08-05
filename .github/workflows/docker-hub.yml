@@ -13,7 +13,7 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build :latest
-        run: docker build -t $(echo ${GITHUB_REPOSITORY} | tr '[A-Z]' '[a-z]'):latest .
+        run: docker build -t $(echo ${GITHUB_REPOSITORY} | tr '[A-Z]' '[a-z]'):latest . --file aspnet-mvc-docker/Dockerfile
       - name: Push to docker hub :latest
         uses: actions-hub/docker@master
         with:
