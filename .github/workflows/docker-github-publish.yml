@@ -1,4 +1,4 @@
-name: Publish Docker image
+name: Publish Docker image (GitHub Packages)
 on:
   workflow_dispatch:
 jobs:
@@ -16,11 +16,3 @@ jobs:
           registry: docker.pkg.github.com
           repository: richardpoulson/aspnet-mvc-docker/image
           tag_with_ref: true
-      - name: Push to Docker Hub
-        uses: docker/build-push-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: richardpoulson/aspnet-mvc-docker
-          tag_with_ref: true
-
