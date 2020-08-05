@@ -17,10 +17,12 @@ jobs:
 
       - name: Build :latest
         if: success()
-        run: docker build -t docker.pkg.github.com/${{ github.repository }}/app:latest .
+        run: |
+          GITHUB_REPO_LOWER=$(echo ${{ github.repository }} | tr '[A-Z]' '[a-z]')
+          docker build -t docker.pkg.github.com/$GITHUB_REPO_LOWER/app:latest .
         
       - name: Push to docker hub :latest
         if: success()
         uses: actions-hub/docker@master
         with:
-          args: push docker.pkg.github.com/${{ github.repository }}:latest
+          args: push docker.pkg.github.com/$GITHUB_REPO_LOWER:latest
