@@ -71,3 +71,4 @@ jobs:
 
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+          docker push richardpoulson/aspnet-mvc-docker:$VERSION
