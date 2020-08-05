@@ -1,20 +1,26 @@
-name: Publish Docker image
-on: [workflow_dispatch]
-env:
-  IMAGE_NAME: image
+name: Docker registry
+
+on: [push]
+
 jobs:
-  push_to_registry:
-    name: Push Docker image to Docker Hub
-    runs-on: ubuntu-latest
+  github:
+    runs-on: ubuntu-latest    
     steps:
-      - name: Login to docker hub
+      - uses: actions/checkout@v1
+
+      - name: Login to github registry
         uses: actions-hub/docker/login@master
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.pkg.github.com
+
       - name: Build :latest
-        run: docker build -t $(echo ${GITHUB_REPOSITORY} | tr '[A-Z]' '[a-z]'):latest . --file aspnet-mvc-docker/Dockerfile
+        if: success()
+        run: docker build -t docker.pkg.github.com/${{ github.repository }}/app:latest .
+        
       - name: Push to docker hub :latest
+        if: success()
         uses: actions-hub/docker@master
         with:
-          args: push $(echo ${GITHUB_REPOSITORY} | tr '[A-Z]' '[a-z]'):latest
+          args: push docker.pkg.github.com/${{ github.repository }}:latest
